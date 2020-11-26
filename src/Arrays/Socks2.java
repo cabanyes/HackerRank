@@ -31,7 +31,7 @@ public class Socks2 {
 
 		int entrada[] = new int[] { 10, 20, 20, 10, 10, 30, 50, 10, 20 };
 		int entrada2[] = new int[] { 1, 2, 1, 2, 1, 3, 2 };
-
-		sockMerchant(entrada.length, entrada);
+		int entrada08[] = new int[] { 1, 1, 3, 1, 2, 1, 3, 3, 3, 3 };
+		System.out.println(sockMerchant(entrada.length, entrada08));
 	}
 }
