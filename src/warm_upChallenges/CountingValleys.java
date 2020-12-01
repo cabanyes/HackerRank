@@ -1,4 +1,4 @@
-package Arrays;
+package warm_upChallenges;
 
 import java.io.*;
 import java.math.*;
