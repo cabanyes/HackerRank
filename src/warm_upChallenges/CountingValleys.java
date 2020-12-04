@@ -12,10 +12,7 @@ import java.util.stream.*;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-class Result {
-
-	
-
+class Solution {
 	/*
 	 * Complete the 'countingValleys' function below.
 	 *
@@ -26,42 +23,51 @@ class Result {
 	public static int countingValleys(int steps, String path) {
 		// Write your code here
 		int level = 0;
-		String res="*";
-		
+		int result[] = new int[path.length()];
+
 		for (int i = 0; i < steps; i++) {
-           if(path.charAt(i) == 'D') {
-        	   level = level -1;
-           }else if (path.charAt(i) == 'U') {
-        	   level = level + 1;
-           }
-          // System.out.print(level + " ");
-           String aux = Integer.toString(level);
-           res =res.concat(aux);
-          // System.out.println("strig formada " + res);
+			if (path.charAt(i) == 'D') {
+				level = level - 1;
+			} else if (path.charAt(i) == 'U') {
+				level = level + 1;
+			}
+			result[i] = level;
 		}
-		
-		
-		
-		//System.out.println();
-		//System.out.println(res);
-		//return 0;
+
 		int total = 0;
-		for (int i = 0; i < res.length()-1; i++) {
-			if(res.charAt(i) == '0') {
-				total = total +1;
+		boolean isValley = false;
+
+		for (int i = 0; i < steps; i++) {
+			if (result[i] < 0 && !isValley) {
+				isValley = true;
+			}
+			if (result[i] == 0 && isValley) {
+				total = total + 1;
+				isValley = false;
 			}
 		}
 		return (total);
 	}
-
 }
 
 public class CountingValleys {
 	public static void main(String[] args) throws IOException {
-		String path = "DDUUDDUDUUUD";
-		String path2 = "UDDDUDUU";
-		System.out.println(Result.countingValleys(path2.length(), path2));
-		
+
+		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+		int steps = Integer.parseInt(bufferedReader.readLine().trim());
+
+		String path = bufferedReader.readLine();
+
+		int result = Solution.countingValleys(steps, path);
+
+		bufferedWriter.write(String.valueOf(result));
+		bufferedWriter.newLine();
+
+		bufferedReader.close();
+		bufferedWriter.close();
 
 	}
+
 }

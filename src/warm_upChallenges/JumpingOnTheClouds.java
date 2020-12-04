@@ -9,63 +9,55 @@ import java.util.concurrent.*;
 import java.util.regex.*;
 
 public class JumpingOnTheClouds {
-
-    // Complete the jumpingOnClouds function below.
-    static int jumpingOnClouds(int[] c) {
-    	int index = 0;
-    	int jumps = 0;
-    	
-    	while (index < c.length - 2 ) {
-    		
-    		if(c[index + 2 ] == 0) {
-    			index  = index +2; 
-    		}else {
-    			index = index + 1 ;
-    		}
-    		jumps++;
-    		
-    		System.out.println("index " + index);
-    		System.out.println("jumps " + jumps);
-    		System.out.println("");
-    	}
-    	
-    	
+	// Complete the jumpingOnClouds function below.
+	static int jumpingOnClouds(int[] c) {
+		int index = 0;
+		int jumps = 0;
+		//comprobar si el salto de posiciones es posible
+		//si lo es index y jumps se incrementan
+		while (index < c.length - 2) {
+			if (c[index + 2] == 0) {
+				index = index + 2;
+			} else {
+				index = index + 1;
+			}
+			jumps++;
+		}
+		//se trata el ultimo index, si es el último elemento de la array
+		//no se hace nada, si es el penultimo, se comprueba si el último es valido o no
+		//si lo es se incrementa jumps
+		if (!(index == c.length - 1) && c[index + 1] == 0) {
+			jumps++;
+		}
+System.out.println(jumps);
 		return jumps;
+	}
 
+	private static final Scanner scanner = new Scanner(System.in);
 
-    }
+	public static void main(String[] args) throws IOException {
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-    private static final Scanner scanner = new Scanner(System.in);
+		int n = scanner.nextInt();
+		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-    public static void main(String[] args) throws IOException {
-       /* BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+		int[] c = new int[n];
 
-        int n = scanner.nextInt();
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		String[] cItems = scanner.nextLine().split(" ");
+		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        int[] c = new int[n];
+		for (int i = 0; i < n; i++) {
+			int cItem = Integer.parseInt(cItems[i]);
+			c[i] = cItem;
+		}
 
-        String[] cItems = scanner.nextLine().split(" ");
-        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		int result = jumpingOnClouds(c);
 
-        for (int i = 0; i < n; i++) {
-            int cItem = Integer.parseInt(cItems[i]);
-            c[i] = cItem;
-        }
+		bufferedWriter.write(String.valueOf(result));
+		bufferedWriter.newLine();
 
-        int result = jumpingOnClouds(c);
+		bufferedWriter.close();
 
-        bufferedWriter.write(String.valueOf(result));
-        bufferedWriter.newLine();
-
-        bufferedWriter.close();
-
-        scanner.close();*/
-    	
-    	int [] entrada = {0, 0, 1, 0, 0, 1, 0};
-    	int [] entrada2 = {0, 0, 0, 0, 1, 0};
-    	
-    	System.out.println(jumpingOnClouds(entrada2));
-    }
+		scanner.close();
+	}
 }
-
