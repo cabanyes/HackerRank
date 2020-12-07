@@ -1,0 +1,45 @@
+// Complete the minimumBribes function below.
+	static void minimumBribes(int[] q) {
+		System.out.println();
+		for (int index = 0; index < q.length; index++) {
+			System.out.print(q[index] + " ");
+		}
+		System.out.println("hey");
+		/*boolean found = false;
+		int limitBribes = 3;
+		int bribes = 0;
+		int i = 0;
+		while (!found) {
+			if (q[i] == i + 2 && ((i + 2) < q.length)) {
+				System.out.println("tratando elemento " + q[i]);
+				bribes++;
+				if (q[i] == i + 3 && ((i + 3) < q.length)) {
+					bribes += 2;
+					System.out.println("tratando elemento " + q[i]);
+				}
+			}
+			if (bribes >= 3) {
+				found = true;
+			}
+			bribes = 0;
+			i++;
+		}
+
+		System.out.println("fuera while");
+		System.out.println(bribes);
+		if(bribes >= 3) {
+			System.out.println("Too chaotic");
+		}
+		System.out.println("se acabo");
+	*/
+		System.out.println("se acabo");
+		}
+
+1
+5
+2 1 5 3 4
+
+
+1
+5
+2 5 1 3 4

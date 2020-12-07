@@ -8,8 +8,7 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.regex.*;
 
-public class Arrays2D {
-
+public class Arrays2D{
 	// Complete the hourglassSum function below.
 	static int hourglassSum(int[][] arr) {
 		int sum = 0;
@@ -21,43 +20,31 @@ public class Arrays2D {
 		int final_i = 3;
 		int initial_j = 0;
 		int final_j = 3;
+//de dentro a fuera, primero se comprueba la primera plantilla posible, desde [0] [0]
+//se desplaza por i = 0, 3 veces
+//se desplaza por filas 0, 1, 2, 3...para las plantillas que permiten el tamaño de la matriz
 
 		for (int l = 0; l < 4; l++) {
 			for (int k = 0; k < 4; k++) {
 				for (i = initial_i; i < final_i; i++) {
 					for (j = initial_j; j < final_j; j++) {
 						if (!(i == initial_i + 1 && (j == initial_j || j == initial_j + 2))) {
-							// System.out.print(arr[i][j] + " "/* + i+ " "+ j + " " */);
 							sum = sum + arr[i][j];
 						}
 					}
-					// System.out.println("");
 				}
-				System.out.println("suma parcial " + sum);
-				System.out.println("maxSum " + maxSum);
 				if (sum > maxSum) {
 					maxSum = sum;
 				}
 				sum = 0;
-				// System.out.println("");
-
 				initial_j++;
 				final_j++;
-
 			}
-			/*
-			 * System.out.print(initial_i + " "); System.out.print(final_i + " ");
-			 * System.out.print(initial_j + " "); System.out.println(final_j);
-			 * System.out.println(" ");
-			 */
-
 			initial_i++;
 			final_i++;
 			initial_j = 0;
 			final_j = 3;
-
 		}
-		System.out.println(maxSum);
 		return maxSum;
 	}
 
@@ -78,14 +65,6 @@ public class Arrays2D {
 				arr[i][j] = arrItem;
 			}
 		}
-		/*for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 5; j++) {
-				
-				System.out.print(arr[i][j]); 
-			}
-			System.out.println(); 
-		}*/
-
 		int result = hourglassSum(arr);
 
 		bufferedWriter.write(String.valueOf(result));
@@ -94,19 +73,5 @@ public class Arrays2D {
 		bufferedWriter.close();
 
 		scanner.close();
-
-		/*
-		 * int k = 12; int arr[][] = new int[6][6]; for (int i = 0; i < 6; i++) { for
-		 * (int j = 0; j < 6; j++) { arr[i][j] = k; k++; }
-		 * 
-		 * }
-		 * 
-		 * for (int i = 0; i < 6; i++) { k++; for (int j = 0; j < 6; j++) {
-		 * System.out.print(arr[i][j] + " ");
-		 * 
-		 * } System.out.println("");
-		 * 
-		 * } System.out.println(""); System.out.println(hourglassSum(arr));
-		 */
 	}
 }
