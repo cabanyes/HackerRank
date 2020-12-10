@@ -1,98 +1,41 @@
 package arrays;
 
-import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 public class New_Year_Chaos {
-
 	// Complete the minimumBribes function below.
 	static void minimumBribes(int[] q) {
-		
-		// convert array to list
-		List<Integer> result = new ArrayList<Integer>();
-		//System.out.println();
-		
-		  for(int i = 0; i< q.length;i++) { 
-			  //System.out.print(q[i] +		  "  ");
-			  }
-		 
-			//System.out.println();
-		
-		// array to List
-		for (int i = 0; i < q.length; i++) {
-			result.add(q[i]);
-		}
 
-		// showing list
-		for (int i = 0; i < q.length; i++) {
-			//System.out.print(result.get(i) + "  ");
-		}
-		//System.out.println();
-////////////////////////////////////////////////////////////////////////////////////
-		boolean isChaotic = false;
 		int bribes = 0;
-		int i = result.size()-1 ;
-		int k = result.size();
-		// System.out.println("valor de i " +i);
-		while (i > 0) {
-			// System.out.println("valor get["+i+ "] = " + result.get(i));
-			int expected = result.indexOf(k);
-			//System.out.println("position expected " + expected);
-			//System.out.println("valor de i " + i);
-			//System.out.println();
-			if (result.get(i) != i + 1) {
-						//4	     3 + 1 =4
-				//System.out.println("(i - expected)= " + (i - expected));
-				if (i - expected > 2) {
-				    //5-4	
+
+		for (int i = q.length - 1; i >= 0; i--) {
+			// filter cases where there is not a bribe
+			if (q[i] != i + 1) {//case there is one bribe
+				if (((i - 1) >= 0) && q[i - 1] == (i + 1)) {
+					swap(q, i, i - 1);
+					bribes++;
+				} else if (((i - 2) >= 0) && q[i - 2] == (i + 1)) {
+					//case there is two bribes
+					swap(q, i - 2, i - 1);
+					swap(q, i - 1, i);
+					bribes += 2;
+				} else {//case there is 3 or more bribes
 					System.out.println("Too chaotic ");
-					isChaotic = true;
-					break;
-				} else if (i - expected >0) {
-					// result.add(result.get(expected));
-					// System.out.println("bribes " + bribes + " +iteratiion " + (i - expected));
-
-					//if(< 0 i - expected < 2) {
-					int pre = i - expected;
-
-					//System.out.println("pre  " + pre);
-					bribes = bribes + pre;
-					//System.out.println("i " + i + " + expected " + expected);
-					
-					
-					//System.out.println(bribes);
-					// showing list
-					// System.out.println ();
-					// System.out.println ();
-					/*
-					 * for(int j = 0;j<k;j++) { System.out.print(result.get(j) + "  "); }
-					 */
+					return;
 				}
 			}
-				result.remove(expected);
-				for (int j = 0; j < k-1; j++) {
-					//System.out.print(result.get(j) + "  ");
-				}
-				
-				//System.out.println();
-				k = result.size();
-				
-			
-			i--;
-			//System.out.println();
-		}
 
-		if (!isChaotic) {
-			System.out.println(bribes);
 		}
-		// System.out.println("fin de la funcion");
-
+		System.out.println(bribes);
+	}
+	//pre: a, b must be under length of arr
+	//post: put value a position at position b and
+	//put value b position at position a
 	
+	public static void swap(int[] arr, int a, int b) {
+		int temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
@@ -114,11 +57,10 @@ public class New_Year_Chaos {
 				int qItem = Integer.parseInt(qItems[i]);
 				q[i] = qItem;
 			}
-
 			minimumBribes(q);
-			//System.out.println("llamada minimum");
+
 		}
-		 //System.out.println("fin del programa");
+
 		scanner.close();
 	}
 }

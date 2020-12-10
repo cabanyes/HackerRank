@@ -1,71 +1,56 @@
 package arrays;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 public class Solution {
-	// Complete the minimumBribes function below.
-	static void minimumBribes(int[] q) {
-		// convert array to list
-		List<Integer> result = new ArrayList<Integer>();
 
-		for (int i = 0; i < q.length; i++) {
-			result.add(q[i]);
-		}
-		//Arrays.stream(array).anyMatch(x -> x == 3)) {
-		boolean isChaotic = false;
-		int bribes = 0;
-		int i = result.size() - 1;
-		int k = result.size();
+	static void swap(int[] arr, int a, int b) {
+		int temp = arr[a];
+		arr[a] = arr[b];
+		arr[b] = temp;
+	}
 
-		while (i > 0) {
-			int expected = result.indexOf(k);
-			if (result.get(i) != i + 1) {
-				if (i - expected > 2) {
-					System.out.println("Too chaotic ");
-					isChaotic = true;
-					break;
-				} else if (i - expected > 0) {
-					int pre = i - expected;
-					bribes = bribes + pre;
-				}
+	// Complete the minimumSwaps function below.
+	static int minimumSwaps(int[] arr) {
+		int swaps = 0;
+		int i = 0;
+
+		while (i < arr.length - 1) {
+			//2th while just check first postion till these will be ok
+			while (arr[i] != i + 1) {
+				swap(arr, i, arr[i] - 1);
+				swaps++;
 			}
-			result.remove(expected);
-			k = result.size();
-			i--;
+			i++;
 		}
-		if (!isChaotic) {
-			System.out.println(bribes);
-		}
+		return swaps;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
 
-	public static void main(String[] args) {
-		int t = scanner.nextInt();
+	public static void main(String[] args) throws IOException {
+		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
+
+		int n = scanner.nextInt();
 		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-		for (int tItr = 0; tItr < t; tItr++) {
-			int n = scanner.nextInt();
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		int[] arr = new int[n];
 
-			int[] q = new int[n];
+		String[] arrItems = scanner.nextLine().split(" ");
+		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-			String[] qItems = scanner.nextLine().split(" ");
-			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
-
-			for (int i = 0; i < n; i++) {
-				int qItem = Integer.parseInt(qItems[i]);
-				q[i] = qItem;
-			}
-			minimumBribes(q);
-
+		for (int i = 0; i < n; i++) {
+			int arrItem = Integer.parseInt(arrItems[i]);
+			arr[i] = arrItem;
 		}
+
+		int res = minimumSwaps(arr);
+
+		bufferedWriter.write(String.valueOf(res));
+		bufferedWriter.newLine();
+
+		bufferedWriter.close();
 
 		scanner.close();
 	}
