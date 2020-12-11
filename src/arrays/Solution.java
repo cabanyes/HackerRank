@@ -4,27 +4,29 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
+	// Complete the arrayManipulation function below.
+	static long arrayManipulation(int n, int[][] queries) {
+		long res = 0;
+		long[] result = new long[n];
 
-	static void swap(int[] arr, int a, int b) {
-		int temp = arr[a];
-		arr[a] = arr[b];
-		arr[b] = temp;
-	}
+		Arrays.fill(result, 0);
 
-	// Complete the minimumSwaps function below.
-	static int minimumSwaps(int[] arr) {
-		int swaps = 0;
-		int i = 0;
+		for (int i = 0; i < queries.length; i++) {
+			int a = queries[i][0];
+			int b = queries[i][1];
+			int k = queries[i][2];
 
-		while (i < arr.length - 1) {
-			//2th while just check first postion till these will be ok
-			while (arr[i] != i + 1) {
-				swap(arr, i, arr[i] - 1);
-				swaps++;
+			for (int j = a - 1; j < b; j++) {
+				result[j] += k;
 			}
-			i++;
 		}
-		return swaps;
+		for (int j = 0; j<result.length;j++) {
+			if(result[j] > res) {
+				res= result[j];
+			}
+		}
+		
+		return res;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
@@ -32,22 +34,27 @@ public class Solution {
 	public static void main(String[] args) throws IOException {
 		BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-		int n = scanner.nextInt();
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		String[] nm = scanner.nextLine().split(" ");
 
-		int[] arr = new int[n];
+		int n = Integer.parseInt(nm[0]);
 
-		String[] arrItems = scanner.nextLine().split(" ");
-		scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+		int m = Integer.parseInt(nm[1]);
 
-		for (int i = 0; i < n; i++) {
-			int arrItem = Integer.parseInt(arrItems[i]);
-			arr[i] = arrItem;
+		int[][] queries = new int[m][3];
+
+		for (int i = 0; i < m; i++) {
+			String[] queriesRowItems = scanner.nextLine().split(" ");
+			scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+			for (int j = 0; j < 3; j++) {
+				int queriesItem = Integer.parseInt(queriesRowItems[j]);
+				queries[i][j] = queriesItem;
+			}
 		}
 
-		int res = minimumSwaps(arr);
+		long result = arrayManipulation(n, queries);
 
-		bufferedWriter.write(String.valueOf(res));
+		bufferedWriter.write(String.valueOf(result));
 		bufferedWriter.newLine();
 
 		bufferedWriter.close();
