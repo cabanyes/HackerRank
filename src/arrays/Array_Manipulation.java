@@ -1,54 +1,55 @@
 package arrays;
 
 import java.io.*;
-import java.math.*;
-import java.security.*;
-import java.text.*;
 import java.util.*;
-import java.util.concurrent.*;
-import java.util.regex.*;
 
 public class Array_Manipulation {
-
 	// Complete the arrayManipulation function below.
 	static long arrayManipulation(int n, int[][] queries) {
-		long res = 0;
-		int[] result = new int[n];
+		//initial solution O(n*m)
+		/*long res = 0;
+		long[] result = new long[n];
 
 		Arrays.fill(result, 0);
-
-		for (int j : result) {
-
-			System.out.print(j + " ");
-		}
-		System.out.println();
 
 		for (int i = 0; i < queries.length; i++) {
 			int a = queries[i][0];
 			int b = queries[i][1];
 			int k = queries[i][2];
 
-			System.out.print(a + " " + b + " " + k);
-			System.out.println();
-
 			for (int j = a - 1; j < b; j++) {
-				result[j] = result[j] + k;
-			}
-
-			for (int j : result) {
-
-				System.out.print(j + " ");
-			}
-			System.out.println();
-
-		}
-		for (int index = 0; index < result.length; index++) {
-			if (result[index] > res) {
-				res = result[index];
+				result[j] += k;
 			}
 		}
-		System.out.println(res);
+		//looking for max value at final array
+		for (int j = 0; j<result.length;j++) {
+			if(result[j] > res) {
+				res= result[j];
+			}
+		}
+		
 		return res;
+		*/
+		
+		//definitive solution O(n + m)
+		long [] result = new long[n + 1];
+		long sum = 0;
+        long res = 0;
+        
+		for (int i = 0; i < queries.length; i++) {
+			int a = queries[i][0];
+			int b = queries[i][1];
+			int k = queries[i][2];
+			//updating just these two position will be enough to get O(n + m)
+			result[a-1] += k;
+            result[b]   -= k;
+		}
+				
+        for (int i = 0; i < n; i++) {
+            sum += result[i];
+            res = Math.max(res, sum);
+        }
+        return res;
 	}
 
 	private static final Scanner scanner = new Scanner(System.in);
