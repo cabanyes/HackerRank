@@ -1,4 +1,4 @@
-package dictionaries_and_hashmaps;
+package dictionaries_hashmaps;
 
 
 import java.util.Arrays;
